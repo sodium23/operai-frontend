@@ -107,4 +107,4 @@ function ConfidenceScore({ data }: ConfidenceScoreProps) {
     </div>
   );
 }
-export default IdeaInterpretation;
+export default ConfidenceScore;
