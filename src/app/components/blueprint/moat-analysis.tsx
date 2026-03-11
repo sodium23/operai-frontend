@@ -49,4 +49,4 @@ function MoatAnalysis({ data }: MoatAnalysisProps) {
     </div>
   );
 }
-export default IdeaInterpretation;
+export default MoatAnalysis;
