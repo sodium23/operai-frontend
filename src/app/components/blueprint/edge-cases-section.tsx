@@ -11,7 +11,7 @@ interface EdgeCasesSectionProps {
   }>;
 }
 
-export function EdgeCasesSection({ data }: EdgeCasesSectionProps) {
+function EdgeCasesSection({ data }: EdgeCasesSectionProps) {
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "High":
@@ -63,3 +63,4 @@ export function EdgeCasesSection({ data }: EdgeCasesSectionProps) {
     </div>
   );
 }
+export default IdeaInterpretation;
