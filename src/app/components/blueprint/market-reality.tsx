@@ -79,4 +79,4 @@ function MarketReality({ data }: MarketRealityProps) {
     </div>
   );
 }
-export default IdeaInterpretation;
+export default MarketReality;
