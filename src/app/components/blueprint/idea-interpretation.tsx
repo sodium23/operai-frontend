@@ -7,7 +7,7 @@ interface IdeaInterpretationProps {
   };
 }
 
-export function IdeaInterpretation({ data }: IdeaInterpretationProps) {
+function IdeaInterpretation({ data }: IdeaInterpretationProps) {
   return (
     <div className="space-y-6">
       <div>
@@ -46,3 +46,4 @@ export function IdeaInterpretation({ data }: IdeaInterpretationProps) {
     </div>
   );
 }
+export default IdeaInterpretation;
