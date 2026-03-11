@@ -9,7 +9,7 @@ interface MarketRealityProps {
   };
 }
 
-export function MarketReality({ data }: MarketRealityProps) {
+function MarketReality({ data }: MarketRealityProps) {
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "High":
@@ -79,3 +79,4 @@ export function MarketReality({ data }: MarketRealityProps) {
     </div>
   );
 }
+export default IdeaInterpretation;
