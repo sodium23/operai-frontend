@@ -63,4 +63,4 @@ function EdgeCasesSection({ data }: EdgeCasesSectionProps) {
     </div>
   );
 }
-export default IdeaInterpretation;
+export default EdgeCasesSection;
