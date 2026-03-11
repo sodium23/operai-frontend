@@ -18,3 +18,4 @@ const handleSubmit = async () => {
     console.error(err);
   }
 };
+export default Landing;
