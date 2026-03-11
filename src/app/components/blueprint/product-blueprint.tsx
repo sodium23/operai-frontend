@@ -1,4 +1,4 @@
-export function ProductBlueprint() {
+function ProductBlueprint() {
   return (
     <div className="space-y-6">
       <div>
@@ -67,3 +67,4 @@ export function ProductBlueprint() {
     </div>
   );
 }
+export default ProductBlueprint;
