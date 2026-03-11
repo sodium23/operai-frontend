@@ -14,7 +14,7 @@ interface PRDSectionProps {
   };
 }
 
-export function PRDSection({ data }: PRDSectionProps) {
+function PRDSection({ data }: PRDSectionProps) {
   const [expandedStories, setExpandedStories] = useState<Set<string>>(new Set());
 
   const toggleStory = (id: string) => {
@@ -79,3 +79,4 @@ export function PRDSection({ data }: PRDSectionProps) {
     </div>
   );
 }
+export default IdeaInterpretation;
