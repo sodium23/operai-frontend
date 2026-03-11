@@ -8,7 +8,7 @@ interface ArchitectureSectionProps {
   };
 }
 
-export function ArchitectureSection({ data }: ArchitectureSectionProps) {
+function ArchitectureSection({ data }: ArchitectureSectionProps) {
   return (
     <div className="space-y-6">
       <div>
@@ -63,3 +63,4 @@ export function ArchitectureSection({ data }: ArchitectureSectionProps) {
     </div>
   );
 }
+export default IdeaInterpretation;
