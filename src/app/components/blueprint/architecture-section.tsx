@@ -63,4 +63,4 @@ function ArchitectureSection({ data }: ArchitectureSectionProps) {
     </div>
   );
 }
-export default IdeaInterpretation;
+export default ArchitectureSection;
