@@ -11,7 +11,7 @@ interface ValidationSectionProps {
   };
 }
 
-export function ValidationSection({ data }: ValidationSectionProps) {
+function ValidationSection({ data }: ValidationSectionProps) {
   return (
     <div className="space-y-6">
       <div>
@@ -60,3 +60,4 @@ export function ValidationSection({ data }: ValidationSectionProps) {
     </div>
   );
 }
+export default ValidationSection;
