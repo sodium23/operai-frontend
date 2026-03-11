@@ -7,7 +7,7 @@ interface ConfidenceScoreProps {
   };
 }
 
-export function ConfidenceScore({ data }: ConfidenceScoreProps) {
+function ConfidenceScore({ data }: ConfidenceScoreProps) {
   const getScoreColor = (score: number) => {
     if (score >= 75) return "text-green-600";
     if (score >= 50) return "text-yellow-600";
@@ -107,3 +107,4 @@ export function ConfidenceScore({ data }: ConfidenceScoreProps) {
     </div>
   );
 }
+export default IdeaInterpretation;
