@@ -6,7 +6,7 @@ interface MoatAnalysisProps {
   };
 }
 
-export function MoatAnalysis({ data }: MoatAnalysisProps) {
+function MoatAnalysis({ data }: MoatAnalysisProps) {
   return (
     <div className="space-y-6">
       <div>
@@ -49,3 +49,4 @@ export function MoatAnalysis({ data }: MoatAnalysisProps) {
     </div>
   );
 }
+export default IdeaInterpretation;
