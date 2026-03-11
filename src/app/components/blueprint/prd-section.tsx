@@ -79,4 +79,4 @@ function PRDSection({ data }: PRDSectionProps) {
     </div>
   );
 }
-export default IdeaInterpretation;
+export default PRDSection;
