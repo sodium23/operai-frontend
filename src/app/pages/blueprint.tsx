@@ -18,15 +18,71 @@ export default function Blueprint() {
   useEffect(() => {
     const stored = sessionStorage.getItem("blueprintData");
 
-    if (stored) {
-      setBlueprint(JSON.parse(stored));
-    }
+    if (!stored) return;
+
+    const raw = JSON.parse(stored);
+
+    // Transform backend response → UI structure
+    const mappedBlueprint = {
+
+      idea_interpretation: {
+        summary: raw.idea || "Idea summary unavailable",
+        coreValue: raw.problem_solved || "Core value not provided",
+        targetUser: raw.target_audience || "Target user not defined",
+        keyAssumptions: raw.key_features || []
+      },
+
+      market_reality: {
+        demand: "Market demand needs validation",
+        competitors: [],
+        risks: []
+      },
+
+      moat_analysis: {
+        strengths: [],
+        weaknesses: [],
+        differentiation: "Differentiation needs further validation"
+      },
+
+      confidence_score: {
+        score: 6,
+        reasoning: "Initial idea analysis without deeper validation"
+      },
+
+      product_blueprint: {
+        core_features: raw.key_features || []
+      },
+
+      prd: {
+        stories: []
+      },
+
+      architecture: {
+        components: []
+      },
+
+      security: {
+        concerns: []
+      },
+
+      edge_cases: {
+        cases: []
+      },
+
+      validation: {
+        experiments: []
+      }
+
+    };
+
+    setBlueprint(mappedBlueprint);
+
   }, []);
 
   if (!blueprint) {
     return (
       <div className="flex items-center justify-center h-screen text-gray-600">
-        No blueprint data available
+        Generating blueprint...
       </div>
     );
   }
