@@ -88,6 +88,8 @@ export default function Blueprint() {
 
   <IdeaInterpretation data={blueprint.idea_interpretation} />
 
+      <MarketReality data={blueprint.market_reality} />
+
 
 
 
