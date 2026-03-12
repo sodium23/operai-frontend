@@ -64,7 +64,7 @@ const handleGenerate = async () => {
 
   try {
 
-    const response = await fetch("https://operai.onrender.com/operai", {
+const response = await fetch("https://operai.onrender.com/operai", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
