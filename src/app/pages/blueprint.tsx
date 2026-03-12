@@ -211,11 +211,25 @@ validation:{
   }
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
+      <IdeaInterpretation data={blueprint.idea_interpretation} />
 
+      <MarketReality data={blueprint.market_reality} />
 
+      <MoatAnalysis data={blueprint.moat_analysis} />
 
-   <IdeaInterpretation data={blueprint.idea_interpretation} />
-<MarketReality data={blueprint.market_reality} />
+      <ConfidenceScore data={blueprint.confidence_score} />
+
+      <ProductBlueprint data={blueprint.product_blueprint} />
+
+      <PRDSection data={blueprint.prd} />
+
+      <ArchitectureSection data={blueprint.architecture} />
+
+      <SecuritySection data={blueprint.security} />
+
+      <EdgeCasesSection data={blueprint.edge_cases} />
+
+      <ValidationSection data={blueprint.validation} />
 
 
 
