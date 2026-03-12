@@ -28,17 +28,17 @@ export default function Blueprint() {
       return [value];
     };
 
-    const mappedBlueprint = {
+    const normalized = {
 
       idea_interpretation: {
-        summary: raw.idea || "Idea summary unavailable",
-        coreValue: raw.problem_solved || "Core value not provided",
-        targetUser: raw.target_audience || "Target user not defined",
+        summary: raw.idea ?? "",
+        coreValue: raw.problem_solved ?? "",
+        targetUser: raw.target_audience ?? "",
         keyAssumptions: ensureArray(raw.key_features)
       },
 
       market_reality: {
-        demand: raw.market_demand || "Market demand needs validation",
+        demand: raw.market_demand ?? "",
         competitors: ensureArray(raw.competitors),
         risks: ensureArray(raw.risks)
       },
@@ -46,12 +46,12 @@ export default function Blueprint() {
       moat_analysis: {
         strengths: ensureArray(raw.strengths),
         weaknesses: ensureArray(raw.weaknesses),
-        differentiation: raw.differentiation || "Differentiation not analyzed yet"
+        differentiation: raw.differentiation ?? ""
       },
 
       confidence_score: {
-        score: raw.confidence_score || 5,
-        reasoning: raw.reasoning || "Initial evaluation"
+        score: raw.confidence_score ?? 5,
+        reasoning: raw.reasoning ?? ""
       },
 
       product_blueprint: {
@@ -80,7 +80,7 @@ export default function Blueprint() {
 
     };
 
-    setBlueprint(mappedBlueprint);
+    setBlueprint(normalized);
 
   }, []);
 
@@ -96,23 +96,14 @@ export default function Blueprint() {
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
 
       <IdeaInterpretation data={blueprint.idea_interpretation} />
-
       <MarketReality data={blueprint.market_reality} />
-
       <MoatAnalysis data={blueprint.moat_analysis} />
-
       <ConfidenceScore data={blueprint.confidence_score} />
-
       <ProductBlueprint data={blueprint.product_blueprint} />
-
       <PRDSection data={blueprint.prd} />
-
       <ArchitectureSection data={blueprint.architecture} />
-
       <SecuritySection data={blueprint.security} />
-
       <EdgeCasesSection data={blueprint.edge_cases} />
-
       <ValidationSection data={blueprint.validation} />
 
     </div>
