@@ -76,6 +76,12 @@ const response = await fetch("https://operai.onrender.com/operai", {
 
     const data = await response.json();
 
+    if (data.mode === "insufficient_clarity") {
+  alert(data.next_question);
+  setLoading(false);
+  return;
+}
+
     console.log("OPERAI RESPONSE:", data);
 
     // Save blueprint to session storage
