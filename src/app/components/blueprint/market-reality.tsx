@@ -10,6 +10,7 @@ interface MarketRealityProps {
 }
 
 function MarketReality({ data }: MarketRealityProps) {
+  console.log(data);
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "High":
@@ -64,6 +65,16 @@ function MarketReality({ data }: MarketRealityProps) {
           <h3 className="text-sm font-medium text-gray-700 mb-3">Key Risks</h3>
           <div className="space-y-3">
 
+            {data.risks.map((risk, idx) => (
+              <div key={idx} className="border border-gray-200 rounded-lg p-4">
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <span className="text-gray-900 flex-1">{risk.risk}</span>
+                  <Badge variant="outline" className={getSeverityColor(risk.severity)}>
+                    {risk.severity}
+                  </Badge>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
