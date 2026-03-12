@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 
 import IdeaInterpretation from "../components/blueprint/idea-interpretation";
@@ -19,105 +17,100 @@ export default function Blueprint() {
 
   useEffect(() => {
 
-    const sampleBlueprint = {
+    const stored = sessionStorage.getItem("blueprintData");
+
+    if (!stored) return;
+
+    const raw = JSON.parse(stored);
+
+    // SAFE BLUEPRINT (guaranteed structure)
+    const safeBlueprint = {
 
       idea_interpretation: {
-        summary: "Automated tax filing SaaS for Indian startups.",
-        coreValue: "Reduce dependency on CAs and automate compliance.",
-        targetUser: "Indian startups",
-        keyAssumptions: [
-          "Startups want automation",
-          "Accounting data already exists in tools",
-          "Compliance rules can be automated"
-        ]
+        summary: raw?.idea_interpretation?.summary || "",
+        coreValue: raw?.idea_interpretation?.coreValue || "",
+        targetUser: raw?.idea_interpretation?.targetUser || "",
+        keyAssumptions: raw?.idea_interpretation?.keyAssumptions || []
       },
 
       market_reality: {
-        demand: "High demand among early stage startups.",
-        competitors: ["ClearTax", "Quicko"],
-        risks: ["Regulatory changes", "Trust barrier"]
+        demand: raw?.market_reality?.demand || "",
+        competitors: raw?.market_reality?.competitors || [],
+        risks: raw?.market_reality?.risks || []
       },
 
       moat_analysis: {
-        strengths: ["Automation", "Startup focus"],
-        weaknesses: ["Regulatory complexity"],
-        differentiation: "Automated filings vs manual CA workflow"
+        strengths: raw?.moat_analysis?.strengths || [],
+        weaknesses: raw?.moat_analysis?.weaknesses || [],
+        differentiation: raw?.moat_analysis?.differentiation || ""
       },
 
       confidence_score: {
-        score: 7,
-        reasoning: "Large market but regulatory complexity"
+        score: raw?.confidence_score?.score || 0,
+        reasoning: raw?.confidence_score?.reasoning || ""
       },
 
       product_blueprint: {
-        core_features: [
-          "GST automation",
-          "Income tax filing",
-          "Accounting integrations"
-        ]
+        core_features: raw?.product_blueprint?.core_features || []
       },
 
       prd: {
-        stories: [
-          "Founder uploads accounting data",
-          "System calculates taxes automatically",
-          "System generates filings"
-        ]
+        stories: raw?.prd?.stories || []
       },
 
       architecture: {
-        components: [
-          "Frontend dashboard",
-          "Tax rules engine",
-          "Filing API integration"
-        ]
+        components: raw?.architecture?.components || []
       },
 
       security: {
-        concerns: [
-          "Financial data encryption",
-          "Secure document storage"
-        ]
+        concerns: raw?.security?.concerns || []
       },
 
       edge_cases: {
-        cases: [
-          "Multiple GST states",
-          "Foreign income",
-          "Refund scenarios"
-        ]
+        cases: raw?.edge_cases?.cases || []
       },
 
       validation: {
-        experiments: [
-          "Pilot with 5 startups",
-          "Compare time saved vs CA workflow"
-        ]
+        experiments: raw?.validation?.experiments || []
       }
 
     };
 
-    setBlueprint(sampleBlueprint);
+    setBlueprint(safeBlueprint);
 
   }, []);
 
-  if (!blueprint) return <div>Loading...</div>;
+  if (!blueprint) {
+    return (
+      <div className="flex items-center justify-center h-screen text-gray-600">
+        Loading blueprint...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
 
       <IdeaInterpretation data={blueprint.idea_interpretation} />
+
       <MarketReality data={blueprint.market_reality} />
+
       <MoatAnalysis data={blueprint.moat_analysis} />
+
       <ConfidenceScore data={blueprint.confidence_score} />
+
       <ProductBlueprint data={blueprint.product_blueprint} />
+
       <PRDSection data={blueprint.prd} />
+
       <ArchitectureSection data={blueprint.architecture} />
+
       <SecuritySection data={blueprint.security} />
+
       <EdgeCasesSection data={blueprint.edge_cases} />
+
       <ValidationSection data={blueprint.validation} />
 
     </div>
   );
-
 }
