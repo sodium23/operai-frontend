@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import IdeaInterpretation from "../components/blueprint/idea-interpretation";
 import MarketReality from "../components/blueprint/market-reality";
 import MoatAnalysis from "../components/blueprint/moat-analysis";
@@ -11,17 +12,14 @@ import EdgeCasesSection from "../components/blueprint/edge-cases-section";
 import ValidationSection from "../components/blueprint/validation-section";
 
 export default function Blueprint() {
-  const location = useLocation();
-  const blueprint = location.state;
 
-  if (!blueprint) {
-    return <div>No blueprint data available</div>;
-  }
+  const [blueprint, setBlueprint] = useState<any>(null);
 
-  return (
-    <div style={{ padding: 40 }}>
-      <h1>Blueprint</h1>
-      <pre>{JSON.stringify(blueprint, null, 2)}</pre>
-    </div>
-  );
-}
+  useEffect(() => {
+    const stored = sessionStorage.getItem("blueprintData");
+
+    if (stored) {
+      setBlueprint(JSON.parse(stored));
+    }
+  }, []);
+
