@@ -51,6 +51,7 @@ export default function Landing() {
   const navigate = useNavigate();
   const [idea, setIdea] = useState("");
   const [mode, setMode] = useState<"standard" | "advanced">("standard");
+  const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("write");
   const [savedIdeas, setSavedIdeas] = useState<SavedIdea[]>(() => {
@@ -59,6 +60,8 @@ export default function Landing() {
   });
 const handleGenerate = async () => {
   if (!idea.trim()) return;
+
+  setLoading(true);
 
   try {
     const response = await fetch("https://operai.onrender.com/operai", {
@@ -74,13 +77,16 @@ const handleGenerate = async () => {
 
     const data = await response.json();
 
-    navigate("/blueprint", { state: data });
+    sessionStorage.setItem("blueprintData", JSON.stringify(data));
 
-  } catch (error) {
-    console.error(error);
+    navigate("/blueprint");
+
+  } catch (err) {
+    console.error(err);
   }
-};
 
+  setLoading(false);
+};
 
   const selectExample = (description: string) => {
     setIdea(description);
@@ -217,13 +223,13 @@ const handleGenerate = async () => {
                   </div>
 
                   <div className="pt-4">
-                    <Button
-                      onClick={handleGenerate}
-                      disabled={!idea.trim()}
-                      className="w-full h-12 text-base bg-indigo-600 hover:bg-indigo-700 text-white disabled:opacity-50"
-                    >
-                      Generate Blueprint
-                    </Button>
+                   <Button
+  onClick={handleGenerate}
+  disabled={!idea.trim() || loading}
+  className="w-full h-12 text-base bg-indigo-600 hover:bg-indigo-700 text-white disabled:opacity-50"
+>
+  {loading ? "Generating Execution Plan..." : "Generate Blueprint"}
+</Button>
                   </div>
                 </TabsContent>
 
