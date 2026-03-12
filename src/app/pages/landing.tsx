@@ -63,16 +63,16 @@ const handleGenerate = async () => {
   setLoading(true);
 
   try {
+
     const response = await fetch("https://operai.onrender.com/operai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        input_text: idea,
-        question_count: 0
-      })
-    });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    idea: idea
+  })
+});
 
     const data = await response.json();
 
