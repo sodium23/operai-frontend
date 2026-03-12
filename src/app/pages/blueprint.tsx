@@ -12,7 +12,6 @@ import EdgeCasesSection from "../components/blueprint/edge-cases-section";
 import ValidationSection from "../components/blueprint/validation-section";
 
 export default function Blueprint() {
-
   const [blueprint, setBlueprint] = useState<any>(null);
 
   useEffect(() => {
@@ -22,9 +21,7 @@ export default function Blueprint() {
 
     const raw = JSON.parse(stored);
 
-    // Transform backend response → UI structure
     const mappedBlueprint = {
-
       idea_interpretation: {
         summary: raw.idea || "Idea summary unavailable",
         coreValue: raw.problem_solved || "Core value not provided",
@@ -46,7 +43,7 @@ export default function Blueprint() {
 
       confidence_score: {
         score: 6,
-        reasoning: "Initial idea analysis without deeper validation"
+        reasoning: "Initial analysis without deeper validation"
       },
 
       product_blueprint: {
@@ -72,11 +69,9 @@ export default function Blueprint() {
       validation: {
         experiments: []
       }
-
     };
 
     setBlueprint(mappedBlueprint);
-
   }, []);
 
   if (!blueprint) {
@@ -90,25 +85,45 @@ export default function Blueprint() {
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
 
-      <IdeaInterpretation data={blueprint.idea_interpretation} />
+      {blueprint.idea_interpretation && (
+        <IdeaInterpretation data={blueprint.idea_interpretation} />
+      )}
 
-      <MarketReality data={blueprint.market_reality} />
+      {blueprint.market_reality && (
+        <MarketReality data={blueprint.market_reality} />
+      )}
 
-      <MoatAnalysis data={blueprint.moat_analysis} />
+      {blueprint.moat_analysis && (
+        <MoatAnalysis data={blueprint.moat_analysis} />
+      )}
 
-      <ConfidenceScore data={blueprint.confidence_score} />
+      {blueprint.confidence_score && (
+        <ConfidenceScore data={blueprint.confidence_score} />
+      )}
 
-      <ProductBlueprint data={blueprint.product_blueprint} />
+      {blueprint.product_blueprint && (
+        <ProductBlueprint data={blueprint.product_blueprint} />
+      )}
 
-      <PRDSection data={blueprint.prd} />
+      {blueprint.prd && (
+        <PRDSection data={blueprint.prd} />
+      )}
 
-      <ArchitectureSection data={blueprint.architecture} />
+      {blueprint.architecture && (
+        <ArchitectureSection data={blueprint.architecture} />
+      )}
 
-      <SecuritySection data={blueprint.security} />
+      {blueprint.security && (
+        <SecuritySection data={blueprint.security} />
+      )}
 
-      <EdgeCasesSection data={blueprint.edge_cases} />
+      {blueprint.edge_cases && (
+        <EdgeCasesSection data={blueprint.edge_cases} />
+      )}
 
-      <ValidationSection data={blueprint.validation} />
+      {blueprint.validation && (
+        <ValidationSection data={blueprint.validation} />
+      )}
 
     </div>
   );
