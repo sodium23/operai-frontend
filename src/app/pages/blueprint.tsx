@@ -1,5 +1,5 @@
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import IdeaInterpretation from "../components/blueprint/idea-interpretation";
 import MarketReality from "../components/blueprint/market-reality";
 import MoatAnalysis from "../components/blueprint/moat-analysis";
@@ -23,3 +23,37 @@ export default function Blueprint() {
     }
   }, []);
 
+  if (!blueprint) {
+    return (
+      <div className="flex items-center justify-center h-screen text-gray-600">
+        No blueprint data available
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
+
+      <IdeaInterpretation data={blueprint.idea_interpretation} />
+
+      <MarketReality data={blueprint.market_reality} />
+
+      <MoatAnalysis data={blueprint.moat_analysis} />
+
+      <ConfidenceScore data={blueprint.confidence_score} />
+
+      <ProductBlueprint data={blueprint.product_blueprint} />
+
+      <PRDSection data={blueprint.prd} />
+
+      <ArchitectureSection data={blueprint.architecture} />
+
+      <SecuritySection data={blueprint.security} />
+
+      <EdgeCasesSection data={blueprint.edge_cases} />
+
+      <ValidationSection data={blueprint.validation} />
+
+    </div>
+  );
+}
