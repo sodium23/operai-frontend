@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from "react";
 
 import IdeaInterpretation from "../components/blueprint/idea-interpretation";
@@ -17,80 +19,89 @@ export default function Blueprint() {
 
   useEffect(() => {
 
-    const stored = sessionStorage.getItem("blueprintData");
-    if (!stored) return;
-
-    const raw = JSON.parse(stored);
-
-    const ensureArray = (value: any) => {
-      if (!value) return [];
-      if (Array.isArray(value)) return value;
-      return [value];
-    };
-
-    const normalized = {
+    const sampleBlueprint = {
 
       idea_interpretation: {
-        summary: raw.idea ?? "",
-        coreValue: raw.problem_solved ?? "",
-        targetUser: raw.target_audience ?? "",
-        keyAssumptions: ensureArray(raw.key_features)
+        summary: "Automated tax filing SaaS for Indian startups.",
+        coreValue: "Reduce dependency on CAs and automate compliance.",
+        targetUser: "Indian startups",
+        keyAssumptions: [
+          "Startups want automation",
+          "Accounting data already exists in tools",
+          "Compliance rules can be automated"
+        ]
       },
 
       market_reality: {
-        demand: raw.market_demand ?? "",
-        competitors: ensureArray(raw.competitors),
-        risks: ensureArray(raw.risks)
+        demand: "High demand among early stage startups.",
+        competitors: ["ClearTax", "Quicko"],
+        risks: ["Regulatory changes", "Trust barrier"]
       },
 
       moat_analysis: {
-        strengths: ensureArray(raw.strengths),
-        weaknesses: ensureArray(raw.weaknesses),
-        differentiation: raw.differentiation ?? ""
+        strengths: ["Automation", "Startup focus"],
+        weaknesses: ["Regulatory complexity"],
+        differentiation: "Automated filings vs manual CA workflow"
       },
 
       confidence_score: {
-        score: raw.confidence_score ?? 5,
-        reasoning: raw.reasoning ?? ""
+        score: 7,
+        reasoning: "Large market but regulatory complexity"
       },
 
       product_blueprint: {
-        core_features: ensureArray(raw.key_features)
+        core_features: [
+          "GST automation",
+          "Income tax filing",
+          "Accounting integrations"
+        ]
       },
 
       prd: {
-        stories: ensureArray(raw.user_stories)
+        stories: [
+          "Founder uploads accounting data",
+          "System calculates taxes automatically",
+          "System generates filings"
+        ]
       },
 
       architecture: {
-        components: ensureArray(raw.architecture_components)
+        components: [
+          "Frontend dashboard",
+          "Tax rules engine",
+          "Filing API integration"
+        ]
       },
 
       security: {
-        concerns: ensureArray(raw.security_risks)
+        concerns: [
+          "Financial data encryption",
+          "Secure document storage"
+        ]
       },
 
       edge_cases: {
-        cases: ensureArray(raw.edge_cases)
+        cases: [
+          "Multiple GST states",
+          "Foreign income",
+          "Refund scenarios"
+        ]
       },
 
       validation: {
-        experiments: ensureArray(raw.validation_tests)
+        experiments: [
+          "Pilot with 5 startups",
+          "Compare time saved vs CA workflow"
+        ]
       }
 
     };
 
-    setBlueprint(normalized);
+    setBlueprint(sampleBlueprint);
 
   }, []);
 
-  if (!blueprint) {
-    return (
-      <div className="flex items-center justify-center h-screen text-gray-600">
-        Generating blueprint...
-      </div>
-    );
-  }
+  if (!blueprint) return <div>Loading...</div>;
 
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
@@ -108,4 +119,5 @@ export default function Blueprint() {
 
     </div>
   );
+
 }
