@@ -86,7 +86,7 @@ export default function Blueprint() {
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
 
-  <IdeaInterpretation data={blueprint.idea_interpretation} />
+
 
       <MarketReality data={blueprint.market_reality} />
 
