@@ -77,8 +77,15 @@ const handleGenerate = async () => {
 
     const data = await response.json();
 
-    sessionStorage.setItem("blueprintData", JSON.stringify(data));
+    console.log("OPERAI RESPONSE:", data);
 
+    // Save blueprint to session storage
+    sessionStorage.setItem(
+      "blueprintData",
+      JSON.stringify(data.human_readable)
+    );
+
+    // Navigate after saving
     navigate("/blueprint");
 
   } catch (err) {
