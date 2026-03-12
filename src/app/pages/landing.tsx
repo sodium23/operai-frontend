@@ -57,33 +57,32 @@ export default function Landing() {
     const stored = localStorage.getItem("savedIdeas");
     return stored ? JSON.parse(stored) : [];
   });
-
 const handleGenerate = async () => {
   if (!idea.trim()) return;
 
   try {
-    const response = await fetch(
-      "https://operai.onrender.com/operai",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          input_text: idea,
-          question_count: 0
-        })
-      }
-    );
+    const response = await fetch("https://operai.onrender.com/operai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        input_text: idea,
+        question_count: 0
+      })
+    });
 
     const data = await response.json();
 
+    console.log("Backend response:", data);
+
     navigate("/blueprint", { state: data });
 
-  } catch (error) {
-    console.error("Error generating blueprint:", error);
+  } catch (err) {
+    console.error(err);
   }
 };
+
 
   const selectExample = (description: string) => {
     setIdea(description);
