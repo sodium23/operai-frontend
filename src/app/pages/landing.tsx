@@ -47,8 +47,7 @@ interface SavedIdea {
   createdAt: string;
   mode: "standard" | "advanced";
 }
-
-export function LandingPage() {
+export default function Landing() {
   const navigate = useNavigate();
   const [idea, setIdea] = useState("");
   const [mode, setMode] = useState<"standard" | "advanced">("standard");
