@@ -10,7 +10,7 @@ import SecuritySection from "../components/blueprint/security-section";
 import EdgeCasesSection from "../components/blueprint/edge-cases-section";
 import ValidationSection from "../components/blueprint/validation-section";
 
-function Blueprint() {
+export default function Blueprint() {
   const location = useLocation();
   const blueprint = location.state;
 
@@ -19,19 +19,9 @@ function Blueprint() {
   }
 
   return (
-    <div className="p-8 space-y-8">
-      <IdeaInterpretation data={blueprint.idea_interpretation} />
-      <MarketReality data={blueprint.market_reality} />
-      <MoatAnalysis data={blueprint.moat_analysis} />
-      <ConfidenceScore data={blueprint.confidence_score} />
-      <ProductBlueprint data={blueprint.product_blueprint} />
-      <PRDSection data={blueprint.prd} />
-      <ArchitectureSection data={blueprint.architecture} />
-      <SecuritySection data={blueprint.security_governance} />
-      <EdgeCasesSection data={blueprint.critical_edge_cases} />
-      <ValidationSection data={blueprint.validation_plan} />
+    <div style={{ padding: 40 }}>
+      <h1>Blueprint</h1>
+      <pre>{JSON.stringify(blueprint, null, 2)}</pre>
     </div>
   );
 }
-
-export default Blueprint;
