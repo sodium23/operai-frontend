@@ -58,31 +58,32 @@ export default function Landing() {
     return stored ? JSON.parse(stored) : [];
   });
 
-  const handleGenerate = () => {
-    if (idea.trim()) {
-      // Create new saved idea
-      const newIdea: SavedIdea = {
-        id: Date.now().toString(),
-        description: idea,
-        createdAt: new Date().toISOString(),
-        mode,
-      };
+const handleGenerate = async () => {
+  if (!idea.trim()) return;
 
-      const updatedIdeas = [newIdea, ...savedIdeas];
-      setSavedIdeas(updatedIdeas);
-      localStorage.setItem("savedIdeas", JSON.stringify(updatedIdeas));
+  try {
+    const response = await fetch(
+      "https://operai.onrender.com/operai",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          input_text: idea,
+          question_count: 0
+        })
+      }
+    );
 
-      // Store the idea in sessionStorage for blueprint generation
-      sessionStorage.setItem("productIdea", idea);
-      sessionStorage.setItem("mode", mode);
-      sessionStorage.setItem("currentIdeaId", newIdea.id);
+    const data = await response.json();
 
-      // Close dialog and navigate
-      setIsDialogOpen(false);
-      setIdea("");
-      navigate("/blueprint");
-    }
-  };
+    navigate("/blueprint", { state: data });
+
+  } catch (error) {
+    console.error("Error generating blueprint:", error);
+  }
+};
 
   const selectExample = (description: string) => {
     setIdea(description);
