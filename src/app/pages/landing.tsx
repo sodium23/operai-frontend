@@ -5,7 +5,6 @@ import { Textarea } from "../components/ui/textarea";
 import { Lock, ArrowRight, Plus, Trash2, ChevronRight, Sparkles } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-
 const EXAMPLE_IDEAS = [
   {
     title: "AI-Powered Freelance Marketplace",
@@ -82,7 +81,7 @@ const handleGenerate = async () => {
     // Save blueprint to session storage
     sessionStorage.setItem(
       "blueprintData",
-      JSON.stringify(data.human_readable)
+      JSON.stringify(data)
     );
 
     // Navigate after saving
