@@ -74,12 +74,10 @@ const handleGenerate = async () => {
 
     const data = await response.json();
 
-    console.log("Backend response:", data);
-
     navigate("/blueprint", { state: data });
 
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
   }
 };
 
