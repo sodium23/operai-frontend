@@ -16,70 +16,66 @@ export default function Blueprint() {
   const [blueprint, setBlueprint] = useState<any>(null);
 
   useEffect(() => {
+  const stored = sessionStorage.getItem("blueprintData");
+  if (!stored) return;
 
-    const stored = sessionStorage.getItem("blueprintData");
+  const raw = JSON.parse(stored);
 
-    if (!stored) return;
+  const toArray = (v:any) => Array.isArray(v) ? v : [];
 
-    const raw = JSON.parse(stored);
+  const safeBlueprint = {
+    idea_interpretation: {
+      summary: raw.idea_interpretation?.summary || "",
+      coreValue: raw.idea_interpretation?.coreValue || "",
+      targetUser: raw.idea_interpretation?.targetUser || "",
+      keyAssumptions: toArray(raw.idea_interpretation?.keyAssumptions)
+    },
 
-    // SAFE BLUEPRINT (guaranteed structure)
-    const safeBlueprint = {
+    market_reality: {
+      demand: raw.market_reality?.demand || "",
+      competitors: toArray(raw.market_reality?.competitors),
+      risks: toArray(raw.market_reality?.risks)
+    },
 
-      idea_interpretation: {
-        summary: raw?.idea_interpretation?.summary || "",
-        coreValue: raw?.idea_interpretation?.coreValue || "",
-        targetUser: raw?.idea_interpretation?.targetUser || "",
-        keyAssumptions: raw?.idea_interpretation?.keyAssumptions || []
-      },
+    moat_analysis: {
+      strengths: toArray(raw.moat_analysis?.strengths),
+      weaknesses: toArray(raw.moat_analysis?.weaknesses),
+      differentiation: raw.moat_analysis?.differentiation || ""
+    },
 
-      market_reality: {
-        demand: raw?.market_reality?.demand || "",
-        competitors: raw?.market_reality?.competitors || [],
-        risks: raw?.market_reality?.risks || []
-      },
+    confidence_score: {
+      score: raw.confidence_score?.score || 0,
+      reasoning: raw.confidence_score?.reasoning || ""
+    },
 
-      moat_analysis: {
-        strengths: raw?.moat_analysis?.strengths || [],
-        weaknesses: raw?.moat_analysis?.weaknesses || [],
-        differentiation: raw?.moat_analysis?.differentiation || ""
-      },
+    product_blueprint: {
+      core_features: toArray(raw.product_blueprint?.core_features)
+    },
 
-      confidence_score: {
-        score: raw?.confidence_score?.score || 0,
-        reasoning: raw?.confidence_score?.reasoning || ""
-      },
+    prd: {
+      stories: toArray(raw.prd?.stories)
+    },
 
-      product_blueprint: {
-        core_features: raw?.product_blueprint?.core_features || []
-      },
+    architecture: {
+      components: toArray(raw.architecture?.components)
+    },
 
-      prd: {
-        stories: raw?.prd?.stories || []
-      },
+    security: {
+      concerns: toArray(raw.security?.concerns)
+    },
 
-      architecture: {
-        components: raw?.architecture?.components || []
-      },
+    edge_cases: {
+      cases: toArray(raw.edge_cases?.cases)
+    },
 
-      security: {
-        concerns: raw?.security?.concerns || []
-      },
+    validation: {
+      experiments: toArray(raw.validation?.experiments)
+    }
+  };
 
-      edge_cases: {
-        cases: raw?.edge_cases?.cases || []
-      },
+  setBlueprint(safeBlueprint);
 
-      validation: {
-        experiments: raw?.validation?.experiments || []
-      }
-
-    };
-
-    setBlueprint(safeBlueprint);
-
-  }, []);
-
+}, []);
   if (!blueprint) {
     return (
       <div className="flex items-center justify-center h-screen text-gray-600">
