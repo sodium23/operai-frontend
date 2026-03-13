@@ -20,95 +20,82 @@ export default function Blueprint() {
   const [saved, setSaved] = useState(false);
   const [isSavedIdea, setIsSavedIdea] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
 
-    const stored = sessionStorage.getItem("blueprintData");
+  const stored = sessionStorage.getItem("blueprintData");
 
-    if (!stored) {
-      console.error("No blueprintData found in sessionStorage");
-      return;
+  if (!stored) {
+    console.error("No blueprintData found in sessionStorage");
+    return;
+  }
+
+  const raw = JSON.parse(stored);
+
+  // detect if this blueprint came from savedIdeas
+  const ideaId = sessionStorage.getItem("currentIdeaId");
+  setIsSavedIdea(!!ideaId);
+
+  const arr = (v:any) => Array.isArray(v) ? v : [];
+
+  const normalized = {
+
+    idea_interpretation:{
+      summary: raw?.idea_interpretation?.summary || "",
+      coreValue: raw?.idea_interpretation?.coreValue || "",
+      targetUser: raw?.idea_interpretation?.targetUser || "",
+      keyAssumptions: arr(raw?.idea_interpretation?.keyAssumptions)
+    },
+
+    market_reality:{
+      marketSize: raw?.market_reality?.marketSize || "",
+      competitors: arr(raw?.market_reality?.competitors),
+      trends: arr(raw?.market_reality?.trends),
+      risks: arr(raw?.market_reality?.risks)
+    },
+
+    moat_analysis:{
+      differentiators: arr(raw?.moat_analysis?.differentiators),
+      barriers: arr(raw?.moat_analysis?.barriers),
+      sustainability: raw?.moat_analysis?.sustainability || ""
+    },
+
+    confidence_score:{
+      score: raw?.confidence_score?.score || 0,
+      factors: arr(raw?.confidence_score?.factors)
+    },
+
+    product_blueprint:{
+      core_features: arr(raw?.product_blueprint?.core_features)
+    },
+
+    prd:{
+      stories: arr(raw?.prd?.stories)
+    },
+
+    architecture:{
+      components: arr(raw?.architecture?.components),
+      dataFlow: arr(raw?.architecture?.dataFlow),
+      scaleTriggers: arr(raw?.architecture?.scaleTriggers)
+    },
+
+    security:{
+      considerations: arr(raw?.security?.considerations),
+      compliance: arr(raw?.security?.compliance),
+      governance: arr(raw?.security?.governance)
+    },
+
+    edge_cases: arr(raw?.edge_cases),
+
+    validation:{
+      experiments: arr(raw?.validation?.experiments),
+      successCriteria: arr(raw?.validation?.successCriteria)
     }
 
-    const raw = JSON.parse(stored);
+  };
 
-    // detect if this blueprint came from savedIdeas
-    const ideaId = sessionStorage.getItem("currentIdeaId");
-    {!isSavedIdea ? (
+  setBlueprint(normalized);
 
-<button onClick={handleSave}>
-  Save Idea
-</button>
-
-) : (
-
-<button onClick={() => navigate("/")}>
-  Go Back
-</button>
-
-)}
-    setIsSavedIdea(!!ideaId);
-
-    const arr = (v:any) => Array.isArray(v) ? v : [];
-
-    const normalized = {
-
-      idea_interpretation:{
-        summary: raw?.idea_interpretation?.summary || "",
-        coreValue: raw?.idea_interpretation?.coreValue || "",
-        targetUser: raw?.idea_interpretation?.targetUser || "",
-        keyAssumptions: arr(raw?.idea_interpretation?.keyAssumptions)
-      },
-
-      market_reality:{
-        marketSize: raw?.market_reality?.marketSize || "",
-        competitors: arr(raw?.market_reality?.competitors),
-        trends: arr(raw?.market_reality?.trends),
-        risks: arr(raw?.market_reality?.risks)
-      },
-
-      moat_analysis:{
-        differentiators: arr(raw?.moat_analysis?.differentiators),
-        barriers: arr(raw?.moat_analysis?.barriers),
-        sustainability: raw?.moat_analysis?.sustainability || ""
-      },
-
-      confidence_score:{
-        score: raw?.confidence_score?.score || 0,
-        factors: arr(raw?.confidence_score?.factors)
-      },
-
-      product_blueprint:{
-        core_features: arr(raw?.product_blueprint?.core_features)
-      },
-
-      prd:{
-        stories: arr(raw?.prd?.stories)
-      },
-
-      architecture:{
-        components: arr(raw?.architecture?.components),
-        dataFlow: arr(raw?.architecture?.dataFlow),
-        scaleTriggers: arr(raw?.architecture?.scaleTriggers)
-      },
-
-      security:{
-        considerations: arr(raw?.security?.considerations),
-        compliance: arr(raw?.security?.compliance),
-        governance: arr(raw?.security?.governance)
-      },
-
-      edge_cases: arr(raw?.edge_cases),
-
-      validation:{
-        experiments: arr(raw?.validation?.experiments),
-        successCriteria: arr(raw?.validation?.successCriteria)
-      }
-
-    };
-
-    setBlueprint(normalized);
-
-  }, []);
+}, []);
 
   // -----------------------------
   // SAVE IDEA FUNCTION
