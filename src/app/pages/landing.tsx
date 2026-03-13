@@ -83,7 +83,7 @@ const response = await fetch("https://operai.onrender.com/operai", {
 
 
 
-    console.log("OPERAI RESPONSE:", data.machine_schema);
+    console.log("OPERAI RESPONSE:", JSON.stringify(data.machine_schema));
 
     // Save blueprint to session storage
     sessionStorage.setItem(
