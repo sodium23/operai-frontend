@@ -14,6 +14,9 @@ import ValidationSection from "../components/blueprint/validation-section";
 
 export default function Blueprint() {
 
+  const currentIdeaId = sessionStorage.getItem("currentIdeaId");
+const isSavedIdea = !!currentIdeaId;
+
   const navigate = useNavigate();
 
   const [blueprint, setBlueprint] = useState<any>(null);
