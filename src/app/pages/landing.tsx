@@ -119,7 +119,7 @@ const response = await fetch("https://operai.onrender.com/operai", {
     setActiveTab("write");
   };
 
-  const viewIdea = (: SavedIdea) => {
+const viewIdea = (savedIdea: SavedIdea) => {
 
   if (savedIdea.blueprint) {
     sessionStorage.setItem(
