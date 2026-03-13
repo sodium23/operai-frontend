@@ -33,6 +33,19 @@ export default function Blueprint() {
 
     // detect if this blueprint came from savedIdeas
     const ideaId = sessionStorage.getItem("currentIdeaId");
+    {!isSavedIdea ? (
+
+<button onClick={handleSave}>
+  Save Idea
+</button>
+
+) : (
+
+<button onClick={() => navigate("/")}>
+  Go Back
+</button>
+
+)}
     setIsSavedIdea(!!ideaId);
 
     const arr = (v:any) => Array.isArray(v) ? v : [];
