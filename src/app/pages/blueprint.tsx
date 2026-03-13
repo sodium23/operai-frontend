@@ -26,7 +26,6 @@ export default function Blueprint() {
 
     const raw = JSON.parse(stored);
 
-    // Utility to prevent .map crashes
     const arr = (v:any) => Array.isArray(v) ? v : [];
 
     const normalized = {
@@ -89,6 +88,29 @@ export default function Blueprint() {
 
   }, []);
 
+  // -----------------------------
+  // SAVE IDEA FUNCTION
+  // -----------------------------
+
+  const handleSave = () => {
+
+    const savedIdeas = JSON.parse(localStorage.getItem("savedIdeas") || "[]");
+
+    const newIdea = {
+      id: Date.now().toString(),
+      description: blueprint?.idea_interpretation?.summary || "Untitled Idea",
+      createdAt: new Date().toISOString(),
+      mode: "standard",
+      blueprint
+    };
+
+    savedIdeas.push(newIdea);
+
+    localStorage.setItem("savedIdeas", JSON.stringify(savedIdeas));
+
+    alert("Idea saved!");
+  };
+
   if (!blueprint) {
     return (
       <div className="flex items-center justify-center h-screen text-gray-600">
@@ -99,6 +121,16 @@ export default function Blueprint() {
 
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
+
+      {/* Save Button */}
+      <div className="flex justify-end">
+        <button
+          onClick={handleSave}
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+        >
+          Save Idea
+        </button>
+      </div>
 
       <IdeaInterpretation data={blueprint.idea_interpretation} />
 
