@@ -45,6 +45,7 @@ interface SavedIdea {
   description: string;
   createdAt: string;
   mode: "standard" | "advanced";
+  blueprint?: any;
 }
 export default function Landing() {
   const navigate = useNavigate();
@@ -106,11 +107,18 @@ const response = await fetch("https://operai.onrender.com/operai", {
   };
 
   const viewIdea = (savedIdea: SavedIdea) => {
-    sessionStorage.setItem("productIdea", savedIdea.description);
-    sessionStorage.setItem("mode", savedIdea.mode);
-    sessionStorage.setItem("currentIdeaId", savedIdea.id);
-    navigate("/blueprint");
-  };
+
+  if (savedIdea.blueprint) {
+    sessionStorage.setItem(
+      "blueprintData",
+      JSON.stringify(savedIdea.blueprint)
+    );
+  }
+
+  sessionStorage.setItem("currentIdeaId", savedIdea.id);
+
+  navigate("/blueprint");
+};
 
   const deleteIdea = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
