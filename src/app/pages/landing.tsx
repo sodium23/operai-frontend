@@ -47,6 +47,7 @@ interface SavedIdea {
   mode: "standard" | "advanced";
   blueprint?: any;
 }
+
 export default function Landing() {
   const navigate = useNavigate();
   const [idea, setIdea] = useState("");
@@ -54,6 +55,18 @@ export default function Landing() {
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("write");
+  const newIdea = {
+  id: Date.now().toString(),
+  description: idea,
+  createdAt: new Date().toISOString(),
+  mode,
+  blueprint: data.machine_schema.machine_schema
+};
+
+const updatedIdeas = [newIdea, ...savedIdeas];
+
+setSavedIdeas(updatedIdeas);
+localStorage.setItem("savedIdeas", JSON.stringify(updatedIdeas));
   const [savedIdeas, setSavedIdeas] = useState<SavedIdea[]>(() => {
     const stored = localStorage.getItem("savedIdeas");
     return stored ? JSON.parse(stored) : [];
@@ -106,7 +119,7 @@ const response = await fetch("https://operai.onrender.com/operai", {
     setActiveTab("write");
   };
 
-  const viewIdea = (savedIdea: SavedIdea) => {
+  const viewIdea = (: SavedIdea) => {
 
   if (savedIdea.blueprint) {
     sessionStorage.setItem(
