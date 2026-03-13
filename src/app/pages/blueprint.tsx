@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import IdeaInterpretation from "../components/blueprint/idea-interpretation";
 import MarketReality from "../components/blueprint/market-reality";
@@ -13,7 +14,10 @@ import ValidationSection from "../components/blueprint/validation-section";
 
 export default function Blueprint() {
 
+  const navigate = useNavigate();
+
   const [blueprint, setBlueprint] = useState<any>(null);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
 
@@ -108,7 +112,12 @@ export default function Blueprint() {
 
     localStorage.setItem("savedIdeas", JSON.stringify(savedIdeas));
 
-    alert("Idea saved!");
+    setSaved(true);
+
+    // redirect after short delay
+    setTimeout(() => {
+      navigate("/");
+    }, 1200);
   };
 
   if (!blueprint) {
@@ -122,11 +131,18 @@ export default function Blueprint() {
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
 
+      {/* Save success banner */}
+      {saved && (
+        <div className="bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded">
+          Idea saved successfully! Redirecting...
+        </div>
+      )}
+
       {/* Save Button */}
       <div className="flex justify-end">
         <button
           onClick={handleSave}
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
         >
           Save Idea
         </button>
