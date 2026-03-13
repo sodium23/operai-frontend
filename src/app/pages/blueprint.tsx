@@ -14,13 +14,11 @@ import ValidationSection from "../components/blueprint/validation-section";
 
 export default function Blueprint() {
 
-  const currentIdeaId = sessionStorage.getItem("currentIdeaId");
-const isSavedIdea = !!currentIdeaId;
-
   const navigate = useNavigate();
 
   const [blueprint, setBlueprint] = useState<any>(null);
   const [saved, setSaved] = useState(false);
+  const [isSavedIdea, setIsSavedIdea] = useState(false);
 
   useEffect(() => {
 
@@ -32,6 +30,10 @@ const isSavedIdea = !!currentIdeaId;
     }
 
     const raw = JSON.parse(stored);
+
+    // detect if this blueprint came from savedIdeas
+    const ideaId = sessionStorage.getItem("currentIdeaId");
+    setIsSavedIdea(!!ideaId);
 
     const arr = (v:any) => Array.isArray(v) ? v : [];
 
@@ -115,9 +117,11 @@ const isSavedIdea = !!currentIdeaId;
 
     localStorage.setItem("savedIdeas", JSON.stringify(savedIdeas));
 
+    // clear flag so next blueprint behaves as new
+    sessionStorage.removeItem("currentIdeaId");
+
     setSaved(true);
 
-    // redirect after short delay
     setTimeout(() => {
       navigate("/");
     }, 1200);
@@ -134,56 +138,45 @@ const isSavedIdea = !!currentIdeaId;
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-10 space-y-10">
 
-      {/* Save success banner */}
       {saved && (
         <div className="bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded">
           Idea saved successfully! Redirecting...
         </div>
       )}
 
-      {/* Save Button */}
       <div className="flex justify-end">
 
-  {!isSavedIdea ? (
+        {!isSavedIdea ? (
 
-    <button
-      onClick={handleSave}
-      className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
-    >
-      Save Idea
-    </button>
+          <button
+            onClick={handleSave}
+            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+          >
+            Save Idea
+          </button>
 
-  ) : (
+        ) : (
 
-    <button
-      onClick={() => navigate("/")}
-      className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
-    >
-      Go Back
-    </button>
+          <button
+            onClick={() => navigate("/")}
+            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
+          >
+            Go Back
+          </button>
 
-  )}
+        )}
 
-</div>
+      </div>
 
       <IdeaInterpretation data={blueprint.idea_interpretation} />
-
       <MarketReality data={blueprint.market_reality} />
-
       <MoatAnalysis data={blueprint.moat_analysis} />
-
       <ConfidenceScore data={blueprint.confidence_score} />
-
       <ProductBlueprint data={blueprint.product_blueprint} />
-
       <PRDSection data={blueprint.prd} />
-
       <ArchitectureSection data={blueprint.architecture} />
-
       <SecuritySection data={blueprint.security} />
-
       <EdgeCasesSection data={blueprint.edge_cases} />
-
       <ValidationSection data={blueprint.validation} />
 
     </div>
