@@ -143,13 +143,28 @@ const isSavedIdea = !!currentIdeaId;
 
       {/* Save Button */}
       <div className="flex justify-end">
-        <button
-          onClick={handleSave}
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
-        >
-          Save Idea
-        </button>
-      </div>
+
+  {!isSavedIdea ? (
+
+    <button
+      onClick={handleSave}
+      className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+    >
+      Save Idea
+    </button>
+
+  ) : (
+
+    <button
+      onClick={() => navigate("/")}
+      className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
+    >
+      Go Back
+    </button>
+
+  )}
+
+</div>
 
       <IdeaInterpretation data={blueprint.idea_interpretation} />
 
