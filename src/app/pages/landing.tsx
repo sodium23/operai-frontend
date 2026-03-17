@@ -77,38 +77,42 @@ const handleGenerate = async () => {
   setLoading(true);
 
   try {
-
-const response = await fetch("https://operai.onrender.com/operai", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    idea: idea
-  })
-});
+    const response = await fetch("https://operai.onrender.com/operai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ idea })
+    });
 
     const data = await response.json();
 
+    console.log("OPERAI RESPONSE:", data.machine_schema);
 
-
-
-
-
-
-    console.log("OPERAI RESPONSE:", JSON.stringify(data.machine_schema));
-
-    // Save blueprint to session storage
+    // ✅ Save to sessionStorage
     sessionStorage.setItem(
       "blueprintData",
       JSON.stringify(data.machine_schema)
     );
 
-    // Navigate after saving
+    // ✅ ALSO save in savedIdeas (if you want UI list)
+    const newIdea = {
+      id: Date.now().toString(),
+      description: idea,
+      createdAt: new Date().toISOString(),
+      mode,
+      blueprint: data.machine_schema
+    };
+
+    const updatedIdeas = [newIdea, ...savedIdeas];
+    setSavedIdeas(updatedIdeas);
+    localStorage.setItem("savedIdeas", JSON.stringify(updatedIdeas));
+
+    // ✅ Navigate AFTER everything is saved
     navigate("/blueprint");
 
   } catch (err) {
-    console.error(err);
+    console.error("API ERROR:", err);
   }
 
   setLoading(false);
