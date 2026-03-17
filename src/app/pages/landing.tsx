@@ -63,6 +63,8 @@ export default function Landing() {
   blueprint: data.machine_schema
 };
 
+  console.log("LANDING FILE V2 LOADED");
+
 const updatedIdeas = [newIdea, ...savedIdeas];
 
 setSavedIdeas(updatedIdeas);
