@@ -106,6 +106,8 @@ const raw = parsed.machine_schema || parsed;
 
     const savedIdeas = JSON.parse(localStorage.getItem("savedIdeas") || "[]");
 
+    console.log("saved ideas", savedIdeas);
+
     const newIdea = {
       id: Date.now().toString(),
       description: blueprint?.idea_interpretation?.summary || "Untitled Idea",
