@@ -77,15 +77,82 @@ const handleGenerate = async () => {
   setLoading(true);
 
   try {
-    const response = await fetch("https://operai.onrender.com/operai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ idea })
-    });
+   // const response = await fetch("https://operai.onrender.com/operai", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json"
+//   },
+//   body: JSON.stringify({ idea })
+// });
 
-    const data = await response.json();
+// const data = await response.json();
+
+const data = {
+  mode: "execution_ready",
+  machine_schema: {
+    idea_interpretation: {
+      summary: "A mobile application designed for nurses and healthcare workers to easily swap shifts with one another.",
+      coreValue: "Intelligent matching based on credentials and location.",
+      targetUser: "Nurses and healthcare workers",
+      keyAssumptions: [
+        "Users trust automated compliance tools",
+        "Government APIs remain stable"
+      ]
+    },
+    market_reality: {
+      marketSize: "4 million nurses in the U.S.",
+      competitors: [
+        { name: "ClearTax", strength: "Compliance ecosystem" },
+        { name: "Quicko", strength: "Automated workflows" }
+      ],
+      trends: ["Digitization", "Automation"],
+      risks: [
+        { risk: "Regulatory changes", severity: "High" }
+      ]
+    },
+    moat_analysis: {
+      differentiators: ["Smart matching"],
+      barriers: ["Healthcare compliance"],
+      sustainability: "Strong"
+    },
+    confidence_score: {
+      score: 7,
+      factors: [{ factor: "Market demand", impact: "positive" }]
+    },
+    product_blueprint: {
+      core_features: ["Shift swap", "Messaging"]
+    },
+    prd: {
+      stories: [
+        {
+          id: "US1",
+          title: "User Story 1",
+          persona: "Nurse",
+          want: "Swap shift",
+          so: "manage schedule",
+          criteria: ["Match found"]
+        }
+      ]
+    },
+    architecture: {
+      components: [{ name: "Frontend", description: "UI" }],
+      dataFlow: ["User → system"],
+      scaleTriggers: ["10k users"]
+    },
+    security: {
+      considerations: ["Encryption"],
+      compliance: ["Healthcare laws"],
+      governance: ["Audit logs"]
+    },
+    edge_cases: [],
+    validation: {
+      experiments: [
+        { experiment: "Pilot", metric: "Usage", timeline: "2 weeks" }
+      ],
+      successCriteria: ["80% adoption"]
+    }
+  }
+};
 
     console.log("OPERAI RESPONSE:", data.machine_schema);
 
