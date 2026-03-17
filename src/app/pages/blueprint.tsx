@@ -30,6 +30,7 @@ useEffect(() => {
   }
 
   const parsed = JSON.parse(stored);
+  console.log("blueprintData",parsed);
 const raw = parsed.machine_schema || parsed;
 
   // detect if this blueprint came from savedIdeas
