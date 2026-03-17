@@ -10,7 +10,7 @@ interface MarketRealityProps {
 }
 
 function MarketReality({ data }: MarketRealityProps) {
-  console.log(data);
+
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "High":
