@@ -116,6 +116,9 @@ const raw = parsed.machine_schema || parsed;
 
     savedIdeas.push(newIdea);
 
+    console.log("newIdea", JSON.parse(newIdea));
+     console.log("savedIdeas", JSON.parse(savedIdeas);
+
     localStorage.setItem("savedIdeas", JSON.stringify(savedIdeas));
 
     // clear flag so next blueprint behaves as new
