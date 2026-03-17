@@ -168,7 +168,6 @@ const raw = parsed.machine_schema || parsed;
         )}
 
       </div>
-console.log(JSON.parse(sessionStorage.getItem("blueprintData")));
       <IdeaInterpretation data={blueprint.idea_interpretation} />
       <MarketReality data={blueprint.market_reality} />
       <MoatAnalysis data={blueprint.moat_analysis} />
