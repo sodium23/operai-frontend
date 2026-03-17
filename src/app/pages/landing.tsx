@@ -47,29 +47,13 @@ interface SavedIdea {
   mode: "standard" | "advanced";
   blueprint?: any;
 }
-
 export default function Landing() {
-    console.log("LANDING FILE V2 LOADED");
   const navigate = useNavigate();
   const [idea, setIdea] = useState("");
   const [mode, setMode] = useState<"standard" | "advanced">("standard");
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("write");
-  const newIdea = {
-  id: Date.now().toString(),
-  description: idea,
-  createdAt: new Date().toISOString(),
-  mode,
-  blueprint: data.machine_schema
-};
-
-  console.log("LANDING FILE V2 LOADED");
-
-const updatedIdeas = [newIdea, ...savedIdeas];
-
-setSavedIdeas(updatedIdeas);
-localStorage.setItem("savedIdeas", JSON.stringify(updatedIdeas));
   const [savedIdeas, setSavedIdeas] = useState<SavedIdea[]>(() => {
     const stored = localStorage.getItem("savedIdeas");
     return stored ? JSON.parse(stored) : [];
@@ -80,109 +64,38 @@ const handleGenerate = async () => {
   setLoading(true);
 
   try {
-   // const response = await fetch("https://operai.onrender.com/operai", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json"
-//   },
-//   body: JSON.stringify({ idea })
-// });
 
-// const data = await response.json();
+const response = await fetch("https://operai.onrender.com/operai", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    idea: idea
+  })
+});
 
-const data = {
-  mode: "execution_ready",
-  machine_schema: {
-    idea_interpretation: {
-      summary: "A mobile application designed for nurses and healthcare workers to easily swap shifts with one another.",
-      coreValue: "Intelligent matching based on credentials and location.",
-      targetUser: "Nurses and healthcare workers",
-      keyAssumptions: [
-        "Users trust automated compliance tools",
-        "Government APIs remain stable"
-      ]
-    },
-    market_reality: {
-      marketSize: "4 million nurses in the U.S.",
-      competitors: [
-        { name: "ClearTax", strength: "Compliance ecosystem" },
-        { name: "Quicko", strength: "Automated workflows" }
-      ],
-      trends: ["Digitization", "Automation"],
-      risks: [
-        { risk: "Regulatory changes", severity: "High" }
-      ]
-    },
-    moat_analysis: {
-      differentiators: ["Smart matching"],
-      barriers: ["Healthcare compliance"],
-      sustainability: "Strong"
-    },
-    confidence_score: {
-      score: 7,
-      factors: [{ factor: "Market demand", impact: "positive" }]
-    },
-    product_blueprint: {
-      core_features: ["Shift swap", "Messaging"]
-    },
-    prd: {
-      stories: [
-        {
-          id: "US1",
-          title: "User Story 1",
-          persona: "Nurse",
-          want: "Swap shift",
-          so: "manage schedule",
-          criteria: ["Match found"]
-        }
-      ]
-    },
-    architecture: {
-      components: [{ name: "Frontend", description: "UI" }],
-      dataFlow: ["User → system"],
-      scaleTriggers: ["10k users"]
-    },
-    security: {
-      considerations: ["Encryption"],
-      compliance: ["Healthcare laws"],
-      governance: ["Audit logs"]
-    },
-    edge_cases: [],
-    validation: {
-      experiments: [
-        { experiment: "Pilot", metric: "Usage", timeline: "2 weeks" }
-      ],
-      successCriteria: ["80% adoption"]
-    }
-  }
-};
+    const data = await response.json();
 
-    console.log("OPERAI RESPONSE:", data.machine_schema);
 
-    // ✅ Save to sessionStorage
+
+
+
+
+
+    console.log("OPERAI RESPONSE:", JSON.stringify(data.machine_schema));
+
+    // Save blueprint to session storage
     sessionStorage.setItem(
       "blueprintData",
       JSON.stringify(data.machine_schema)
     );
 
-    // ✅ ALSO save in savedIdeas (if you want UI list)
-    const newIdea = {
-      id: Date.now().toString(),
-      description: idea,
-      createdAt: new Date().toISOString(),
-      mode,
-      blueprint: data.machine_schema
-    };
-
-    const updatedIdeas = [newIdea, ...savedIdeas];
-    setSavedIdeas(updatedIdeas);
-    localStorage.setItem("savedIdeas", JSON.stringify(updatedIdeas));
-
-    // ✅ Navigate AFTER everything is saved
+    // Navigate after saving
     navigate("/blueprint");
 
   } catch (err) {
-    console.error("API ERROR:", err);
+    console.error(err);
   }
 
   setLoading(false);
@@ -193,19 +106,18 @@ const data = {
     setActiveTab("write");
   };
 
-const viewIdea = (savedIdea: SavedIdea) => {
+  const viewIdea = (savedIdea: SavedIdea) => {
 
   if (savedIdea.blueprint) {
     sessionStorage.setItem(
       "blueprintData",
       JSON.stringify(savedIdea.blueprint)
     );
-     console.log("Saved Item:", JSON.stringify(savedIdea.blueprint));
   }
 
   sessionStorage.setItem("currentIdeaId", savedIdea.id);
 
- window.location.href = "/blueprint";
+  navigate("/blueprint");
 };
 
   const deleteIdea = (id: string, e: React.MouseEvent) => {
