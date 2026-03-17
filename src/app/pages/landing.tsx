@@ -49,6 +49,7 @@ interface SavedIdea {
 }
 
 export default function Landing() {
+    console.log("LANDING FILE V2 LOADED");
   const navigate = useNavigate();
   const [idea, setIdea] = useState("");
   const [mode, setMode] = useState<"standard" | "advanced">("standard");
