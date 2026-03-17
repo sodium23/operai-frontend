@@ -116,8 +116,8 @@ const raw = parsed.machine_schema || parsed;
 
     savedIdeas.push(newIdea);
 
-    console.log("newIdea", JSON.parse(newIdea));
-     console.log("savedIdeas", JSON.parse(savedIdeas);
+     console.log("newIdea", newIdea);         
+  console.log("savedIdeas", savedIdeas); 
 
     localStorage.setItem("savedIdeas", JSON.stringify(savedIdeas));
 
