@@ -107,7 +107,7 @@ const response = await fetch("https://operai.onrender.com/operai", {
   };
 
   const viewIdea = (savedIdea: SavedIdea) => {
-
+console.log("saved idea", savedIdea.blueprint);
   if (savedIdea.blueprint) {
     sessionStorage.setItem(
       "blueprintData",
