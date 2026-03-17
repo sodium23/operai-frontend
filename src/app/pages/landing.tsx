@@ -60,7 +60,7 @@ export default function Landing() {
   description: idea,
   createdAt: new Date().toISOString(),
   mode,
-  blueprint: data.machine_schema.machine_schema
+  blueprint: data.machine_schema
 };
 
 const updatedIdeas = [newIdea, ...savedIdeas];
