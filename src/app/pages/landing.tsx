@@ -135,7 +135,7 @@ const viewIdea = (savedIdea: SavedIdea) => {
 
   sessionStorage.setItem("currentIdeaId", savedIdea.id);
 
-  navigate("/blueprint");
+ window.location.href = "/blueprint";
 };
 
   const deleteIdea = (id: string, e: React.MouseEvent) => {
