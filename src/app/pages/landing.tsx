@@ -61,44 +61,39 @@ export default function Landing() {
 const handleGenerate = async () => {
   if (!idea.trim()) return;
 
-  setLoading(true);
+  // Save idea locally (same as before)
+  const newIdea = {
+    id: Date.now().toString(),
+    description: idea,
+    createdAt: new Date().toISOString(),
+    mode,
+  };
+
+  const updatedIdeas = [newIdea, ...savedIdeas];
+  setSavedIdeas(updatedIdeas);
+  localStorage.setItem("savedIdeas", JSON.stringify(updatedIdeas));
 
   try {
+    // 🔥 CALL YOUR BACKEND
+    const res = await fetch("https://operai.onrender.com/operai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ idea, mode }),
+    });
 
-const response = await fetch("https://operai.onrender.com/operai", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    idea: idea
-  })
-});
+    const data = await res.json();
 
-    const data = await response.json();
+    // ✅ PASS DATA TO BLUEPRINT PAGE
+    navigate("/blueprint", { state: data });
 
-
-
-
-
-
-
-    console.log("OPERAI RESPONSE:", JSON.stringify(data.machine_schema));
-
-    // Save blueprint to session storage
-    sessionStorage.setItem(
-      "blueprintData",
-      JSON.stringify(data.machine_schema)
-    );
-
-    // Navigate after saving
-    navigate("/blueprint");
-
+    // cleanup
+    setIsDialogOpen(false);
+    setIdea("");
   } catch (err) {
-    console.error(err);
+    console.error("Error generating blueprint:", err);
   }
-
-  setLoading(false);
 };
 
   const selectExample = (description: string) => {
