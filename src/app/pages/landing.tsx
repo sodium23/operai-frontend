@@ -84,6 +84,8 @@ const handleGenerate = async () => {
     });
 
     const data = await res.json();
+    
+    sessionStorage.setItem("blueprintData", JSON.stringify(data));
 
     // ✅ PASS DATA TO BLUEPRINT PAGE
     navigate("/blueprint", { state: data });
