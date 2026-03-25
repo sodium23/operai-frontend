@@ -35,6 +35,7 @@ const raw = parsed.machine_schema || parsed;
 
   // detect if this blueprint came from savedIdeas
   const ideaId = sessionStorage.getItem("currentIdeaId");
+  console.log("ideaId",ideaId);
   setIsSavedIdea(!!ideaId);
 
   const arr = (v:any) => Array.isArray(v) ? v : [];
@@ -118,6 +119,7 @@ const raw = parsed.machine_schema || parsed;
     };
 
     savedIdeas.push(newIdea);
+    console.log("saved ideas", savedIdeas);
 
     localStorage.setItem("savedIdeas", JSON.stringify(savedIdeas));
 
